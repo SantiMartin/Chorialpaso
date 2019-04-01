@@ -1,0 +1,10 @@
+          {% for producto in productos %}
+          <tr>
+            <td> {{ producto.codigo }} </td>
+            <td> {{ producto.nombre }} </td>
+            <td> {{ producto.tipo_formato }} </td>
+            <td> {{ producto.cantidad_producto }} </td>
+            <td> <a href= "http://127.0.0.1:8000/stock/eliminar?codigo= {{producto.codigo}} " ><i class="material-icons">delete</i></a>
+            </td>
+            </tr>   
+          {% endfor %}
