@@ -32,32 +32,35 @@
 
 		<div class="container">
 			<h4>Ingrese los detalles del producto</h4>
-			<form method="post">
+			<form action="agregar_producto" method="post">
+				{% csrf_token %}
 				<label>Nombre del producto</label>				
 				<input type="text" name="nombre" placeholder="nombre del producto">
-				<label>Formato</label>
-				<select class="browser-default">
+				<label>Categoria</label>
+				<select class="browser-default" name="tipo_categoria">
 				  <option value="" disabled selected>Elija la opcion</option>
-				  <option value="1">unidades</option>
-				  <option value="2">kilos</option>
-				  <option value="3">litros</option>
+				  {% for categoria in categorias %}
+				  <option value="{{categoria.id_categoria}}"> {{categoria.descripcion_categoria}} </option>
+				  {% endfor %}
+				</select>	
+				<label>Formato</label>
+				<select class="browser-default" name="tipo_formato">
+				  <option value="" disabled selected>Elija la opcion</option>
+				  {% for formato in formatos %}
+				  <option value="{{formato.id_formato}}"> {{formato.descripcion_formato}} </option>
+				  {% endfor %}
 				</select>	
 				<label>Cantidad</label>
-				<input type="text" name="cantidad" placeholder="cantidad">
+				<input type="text" name="cantidad_producto" placeholder="cantidad">
 				<label>Costo de compra</label>
-				<input type="number" name="costo" placeholder="costo de compra">
+				<input type="number" name="precio_costo" placeholder="costo de compra">
 				<label>Precio de venta</label>
-				<input type="number" name="venta" placeholder="precio de venta"> 				
+				<input type="number" name="precio_venta" placeholder="precio de venta"> 				
 				<input type="submit" class="btn" name="agregar" value="Agregar" >			
-				<input type="submit" class="btn" name="cancelar" value="Cancelar" >
+				<a class="btn" href="http://127.0.0.1:8000/stock" > Cancelar </a>
 			</form>
 		</div>	
-      	  
-      
-
 	</main>
-
-
 	<footer>
 		<div class="footer-copyright">
             <div class="container center">

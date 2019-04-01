@@ -9,35 +9,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'stock/style.css' %}">
-            
-	<title>Chori al Paso</title>
+    <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+
+	<title>Chorifaso</title>
 </head>
 <body>
 	<header>
 		<nav>
 		    <div class="nav-wrapper">
-		      <a href="#" class="brand-logo center">Chori al Paso</a>
+		      <a href="#" class="brand-logo center">Chori al Piso</a>
 		    </div>
 		</nav>
 		<ul id="slide-out" class="sidenav sidenav-fixed">
 			  <li><img class="brand-logo responsive-img" src="{% static 'stock/chorilogo.jpg' %}"></li>
-		      <li><a href="#!">Primarios</a></li>
-		      <li><a href="#!">Secundarios</a></li>
-		      <li><a href="#!">Bebidas</a></li>
-		      <li><a href="#!">Insumos</a></li>
-		      <li><a href="#!">Limpieza</a></li>
+		      {% for categoria in categorias %}
+		      	<li><a class="waves-effect" onclick="filtrar_categoria({{ categoria.id_categoria }})"> {{ categoria.descripcion_categoria }} </a></li>
+		      {% endfor %} 
 		</ul>		   
 	</header>
 
 	<main class="main-fondo">
 		<div class="container ">
-			<div class="center container">
-				<div class="center row">
-					<h4 class=" ">Cabecera</h4>
-					<input class="container col l4" placeholder="Buscar">
-
-					<button class="btn-small center col l3">Agrear producto</button>	
-				</div>
+			<div class="center row">
+				<h2 class=" ">Cabecera</h2>
+				<input class="container" placeholder="Buscar">
+				<a href="http://127.0.0.1:8000/stock/agregar_producto" class="btn-small center col l3">Agrear producto</a>	
 			</div>
 			<table class="container">
 	        <thead>
@@ -45,84 +41,26 @@
 	              <th>Codigo</th>
 	              <th>Nombre</th>
 	              <th>Formato</th>
-	              <th>Cantidad</th>
-	              <th>Precio Costo</th>
-	              <th>Precio Venta</th>
+	              <th>Disponible</th>
 	              <th>Opciones</th>
-
 	          </tr>
 	        </thead>
 
-	        <tbody>
+	        <tbody id="mostrar_producto">
+	          {% for producto in productos %}
 	          <tr>
-	            <td>01</td>
-	            <td>choris</td>
-	            <td>unidad</td>
-	            <td>34</td>
-	            <td>$24</td>
-	            <td>$50</td>
-	            <td><i class="material-icons">create</i><i class="material-icons">delete</i>
-</td>
-	          </tr>
-	          <tr>
-	            <td>01</td>
-	            <td>choris</td>
-	            <td>unidad</td>
-	            <td>34</td>
-	            <td>$24</td>
-	            <td>$50</td>
-	            <td><i class="material-icons">create</i><i class="material-icons">delete</i>
-</td>
-	          </tr>	
-	          <tr>
-	            <td>01</td>
-	            <td>choris</td>
-	            <td>unidad</td>
-	            <td>34</td>
-	            <td>$24</td>
-	            <td>$50</td>
-	            <td><i class="material-icons">create</i><i class="material-icons">delete</i>
-</td>
-	          </tr>	
-	          <tr>
-	            <td>01</td>
-	            <td>choris</td>
-	            <td>unidad</td>
-	            <td>34</td>
-	            <td>$24</td>
-	            <td>$50</td>
-	            <td><i class="material-icons">create</i><i class="material-icons">delete</i>
-</td>
-	          </tr>	
-	          <tr>
-	            <td>01</td>
-	            <td>choris</td>
-	            <td>unidad</td>
-	            <td>34</td>
-	            <td>$24</td>
-	            <td>$50</td>
-	            <td><i class="material-icons">create</i><i class="material-icons">delete</i>
-</td>
-	          </tr>	
-	          <tr>
-	            <td>01</td>
-	            <td>choris</td>
-	            <td>unidad</td>
-	            <td>34</td>
-	            <td>$24</td>
-	            <td>$50</td>
-	            <td><i class="material-icons">create</i><i class="material-icons">delete</i>
-</td>
-	          </tr>		          
+	            <td> {{ producto.codigo }} </td>
+	            <td> {{ producto.nombre }} </td>
+	            <td> {{ producto.tipo_formato }} </td>
+	            <td> {{ producto.cantidad_producto }} </td>
+	            <td> <a href= "http://127.0.0.1:8000/stock/eliminar?codigo= {{producto.codigo}} " ><i class="material-icons">delete</i></a>
+				</td>
+	          </tr>	  
+	          {% endfor %}        
 	        </tbody>
 	      </table>
-	      <br>
-      	  
       </div>
-
 	</main>
-
-
 	<footer>
 		<div class="footer-copyright">
             <div class="container center">
@@ -132,4 +70,20 @@
 	</footer>
 
 </body>
+<script>
+	function filtrar_categoria(id) {
+		console.log(id)
+		$.ajax({
+			type: "POST",
+			url: "http://127.0.0.1:8000/stock/filtrar_categoria",
+			data: {'csrfmiddlewaretoken':'{{csrf_token}}','id_categoria':id},
+			success: function(data){
+				$('#mostrar_producto').html(data);
+			},
+			error:function( jqXhr, textStatus, errorThrown ){
+        console.log( errorThrown );
+    }
+		});
+	}
+</script>
 </html>
