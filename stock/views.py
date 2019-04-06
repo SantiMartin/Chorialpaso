@@ -10,6 +10,12 @@ def index(request):
 	context = {'productos': productos, 'categorias': categorias}
 	return render(request,"stock/index.html",context)
 
+def proveedores(request):
+	productos = Producto.objects.filter(tipo_categoria=1)
+	categorias = Categoria.objects.all()
+	context = {'productos': productos, 'categorias': categorias} #agregar logica para traer proveedores
+	return render(request,"stock/proveedores.html",context)
+
 def eliminar_producto(request):
 	producto = Producto.objects.get(codigo= request.GET['codigo']).delete()
 	response = redirect('index')
