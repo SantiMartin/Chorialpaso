@@ -6,6 +6,7 @@ Añadir las categorias de productos y formatos desde el admin de Django para pod
 TO DO:  
   -Agregar y listar proveedoress
   -Comentar agregarProducto y editar producto
+  -Agregar en la base de datos como default el guion para los atributos precio de venta y de costo para que no cargue vacio.
 
 
 Proximas iteraciones:
