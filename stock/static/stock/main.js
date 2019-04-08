@@ -15,6 +15,20 @@ $(function() {
    });
 });
 
+
+function filtrar_categoria(id) {
+		$.ajax({
+			type: "POST",
+			url: "http://127.0.0.1:8000/stock/filtrar_categoria",
+			data: {'csrfmiddlewaretoken':'{{csrf_token}}','id_categoria':id},
+			success: function(data){
+				$('#mostrar_producto').html(data);
+			},
+			error:function( jqXhr, textStatus, errorThrown ){
+        console.log( errorThrown );
+    }
+		});
+}
 /*
 $menues.click(function(){
      // eliminamos activo de todos los elementos

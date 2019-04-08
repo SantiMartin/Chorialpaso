@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.template.loader import render_to_string
 from stock.models import *
+from django.middleware.csrf import get_token
 
 # from stock.models import Stock # Esto es para importar las cosas de la bd
 
@@ -23,7 +24,8 @@ def eliminar_producto(request):
 
 def filtrar_categoria(request):
 	productos = Producto.objects.filter(tipo_categoria=request.POST['id_categoria'])
-	context = {'productos': productos}
+	csrf_token_value = get_token(request)
+	context = {'productos': productos, "csrf_token_value":csrf_token_value}
 	html = render_to_string('stock/filtrado.html', context)
 	return HttpResponse(html)
 
