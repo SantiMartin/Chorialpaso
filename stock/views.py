@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.template.loader import render_to_string
 from stock.models import *
+
 # from stock.models import Stock # Esto es para importar las cosas de la bd
 
 def index(request):
@@ -11,9 +12,8 @@ def index(request):
 	return render(request,"stock/index.html",context)
 
 def proveedores(request):
-	productos = Producto.objects.filter(tipo_categoria=1)
-	categorias = Categoria.objects.all()
-	context = {'productos': productos, 'categorias': categorias} #agregar logica para traer proveedores
+	proveedores = Proveedor.objects.all()
+	context = {'proveedores': proveedores} #agregar logica para traer proveedores
 	return render(request,"stock/proveedores.html",context)
 
 def eliminar_producto(request):
@@ -44,6 +44,22 @@ def agregar_producto(request):
 	# return HttpResponse(mi_template.render(context)) para realizar el cambio, fijarse si es lo mismo que el de arriba
 
 	# agregar urls para que se pueda ver...
+
+def modificar_producto(request):
+	producto = Producto.objects.filter(codigo=request.GET['codigo'])
+	producto.update(nombre=request.GET['nombre'],precio_costo=float((request.GET['precio_costo']).replace(",", ".")),precio_venta=float((request.GET['precio_venta']).replace(",", ".")))
+	return redirect('index')
+
+def agregar_proveedor(request):
+	if request.method == 'POST':
+		nombre = request.POST['nombre']
+		apellido = request.POST['apellidos']
+		direccion = request.POST['direccion']
+		mail = request.POST['mail']
+		proveedor = Proveedor(nombre=nombre,apellidos=apellido,direccion=direccion,mail=mail)
+		proveedor.save()
+	return render(request,"stock/agregarProveedor.html")
+
 
 #def prodcutos_lista(request):
 #	productos = Producto.objects.all()
