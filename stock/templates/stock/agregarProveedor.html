@@ -1,0 +1,55 @@
+<html>
+<head>
+	{% load static %}
+	<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'stock/style.css' %}">
+            
+	<title>Chori al Paso</title>
+</head>
+<body>
+	<header>
+		<nav>
+		    <div class="nav-wrapper">
+		      <a href="#" class="brand-logo center">Chori al Paso</a>
+		    </div>
+		</nav>
+		<ul id="slide-out" class="sidenav sidenav-fixed">
+			  <li><img class="brand-logo responsive-img" src="{% static 'stock/chorilogo.jpg' %}"></li>
+			  <!-- Ver si quiere agregarle algo aca -->
+		</ul>		   
+	</header>
+
+	<main class="main-fondo">
+
+		<div class="container">
+			<h4>Ingrese los detalles del proveedor</h4>
+			<form action="agregar_proveedor" method="post">
+				{% csrf_token %}
+				<label>Nombre del proveedor</label>				
+				<input type="text" name="nombre" placeholder="Nombre del proveedor">
+				<label> Apellido del proveedor</label>
+				<input type="text" name="apellidos" placeholder="Apellido del proveedor">
+				<label>Direccion</label>
+				<input type="text" name="direccion" placeholder="Direccion">
+				<label>Mail</label>
+				<input type="text" name="mail" placeholder="proveedor@ejemplo.com.ar"> 				
+				<input type="submit" class="btn" name="agregar" value="Agregar" >			
+				<a class="btn" href="http://127.0.0.1:8000/stock/proveedores" > Cancelar </a>
+			</form>
+		</div>	
+	</main>
+	<footer>
+		<div class="footer-copyright">
+            <div class="container center">
+            	Derechos reservados Chori al paso 2019 ©            
+            </div>
+          </div>
+	</footer>
+
+</body>
+</html>
