@@ -24,8 +24,7 @@ def eliminar_producto(request):
 
 def filtrar_categoria(request):
 	productos = Producto.objects.filter(tipo_categoria=request.POST['id_categoria'])
-	csrf_token_value = get_token(request)
-	context = {'productos': productos, "csrf_token_value":csrf_token_value}
+	context = {'productos': productos}
 	html = render_to_string('stock/filtrado.html', context)
 	return HttpResponse(html)
 
@@ -64,9 +63,9 @@ def agregar_proveedor(request):
 
 
 def busqueda_producto(request):
-	productos = Producto.objects.filter(codigo__contains=request.POST['codigo']) | Producto.objects.filter(nombre__contains=request.POST['codigo'])
-	csrf_token_value = get_token(request)
-	context = {'productos': productos, "csrf_token_value":csrf_token_value}
+	categoria = Categoria.objects.get(descripcion_categoria=request.POST['descripcion_categoria'].strip())
+	productos = Producto.objects.filter(codigo__contains=request.POST['codigo'],tipo_categoria=categoria) | Producto.objects.filter(nombre__contains=request.POST['codigo'],tipo_categoria=categoria)
+	context = {'productos': productos}
 	html = render_to_string('stock/filtrado.html', context)
 	return HttpResponse(html)
 #def prodcutos_lista(request):
