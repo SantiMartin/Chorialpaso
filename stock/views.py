@@ -7,6 +7,7 @@ from django.middleware.csrf import get_token
 # from stock.models import Stock # Esto es para importar las cosas de la bd
 
 def index(request):
+	print('ponele q entra')
 	productos = Producto.objects.filter(tipo_categoria=1)
 	categorias = Categoria.objects.all()
 	context = {'productos': productos, 'categorias': categorias}
@@ -47,9 +48,10 @@ def agregar_producto(request):
 	# agregar urls para que se pueda ver...
 
 def modificar_producto(request):
-	producto = Producto.objects.filter(codigo=request.GET['codigo'])
-	producto.update(nombre=request.GET['nombre'],precio_costo=float((request.GET['precio_costo']).replace(",", ".")),precio_venta=float((request.GET['precio_venta']).replace(",", ".")))
-	return redirect('index')
+	producto = Producto.objects.filter(codigo=int(request.POST['codigo']))
+	producto.update(nombre=request.POST['nombre'],precio_costo=float((request.POST['precio_costo']).replace(",", ".")),precio_venta=float((request.POST['precio_venta']).replace(",", ".")))
+	return HttpResponse('productos')
+
 
 def agregar_proveedor(request):
 	if request.method == 'POST':

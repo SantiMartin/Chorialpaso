@@ -56,7 +56,6 @@ $menues.click(function(){
 
 
 async function openModal(codigo, valor_nombre, valor_costo, valor_venta) {
-	
 	const {value: formValues} = await Swal.fire({
 	  title: 'Edicion de artículo',
 	  html:
@@ -71,22 +70,19 @@ async function openModal(codigo, valor_nombre, valor_costo, valor_venta) {
 	  }
 	})
 
-	if (formValues) {
-		$.ajax({
-			type: "GET",
-			url: "http://127.0.0.1:8000/stock/modificar_producto",
-			data: {'codigo': codigo, 'nombre': formValues[0],'precio_costo': formValues[1],'precio_venta': formValues[2]},
-			success: function(data){
-				Swal.fire(JSON.stringify(formValues));
-			},
-			error:function( jqXhr, textStatus, errorThrown ){
-       			console.log( errorThrown );
-    		}
-		});
+	$.ajax({
+		type: "POST",
+		url: "http://127.0.0.1:8000/stock/modificar_producto",
+		data: {'codigo': codigo, 'nombre': formValues[0],'precio_costo': formValues[1],'precio_venta': formValues[2]},
+		success: function(data){
+			//Swal.fire(JSON.stringify(formValues));
+			window.location = data;
+		},
+		error:function( jqXhr, textStatus, errorThrown ){
+       		console.log( errorThrown );
+    	}
+	});
   		//Swal.fire(JSON.stringify(formValues))//aca va una funcion de confirmar que muestre la nueva info.
-	}
-
-	
 }
 
 
