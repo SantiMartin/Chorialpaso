@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Ingreso de proveedores{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Nuevo Proveedor</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form class="form-horizontal" method="POST">
+                                {% csrf_token %}
+                                <div class="col-xs-12 col-sm-10">
+                                    <div class="form-group has-success has-feedback">
+                                        <label class="control-label col-sm-2">{{ form.nombre.label_tag }}</label>
+                                        <div class="col-sm-6">
+                                            {{ form.nombre }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-success has-feedback">
+                                        <label class="control-label col-sm-2"
+                                            for="inputSuccess3">{{ form.apellidos.label_tag }}</label>
+                                        <div class="col-sm-6">
+                                            {{ form.apellidos }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-success has-feedback">
+                                        <label class="control-label col-sm-2"
+                                            for="inputSuccess3">{{ form.direccion.label_tag }}</label>
+                                        <div class="col-sm-6">
+                                            {{ form.direccion }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-success has-feedback">
+                                        <label class="control-label col-sm-2"
+                                            for="inputSuccess3">{{ form.mail.label_tag }}</label>
+                                        <div class="col-sm-6">
+                                            {{ form.mail }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-success has-feedback">
+                                        <label class="control-label col-sm-2"
+                                            for="inputSuccess3">{{ form.producto.label_tag }}</label>
+                                        <div class="col-sm-6">
+                                            {{ form.producto }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-success has-feedback in_row" id="in_row">
+                                        <label class="control-label col-sm-2"
+                                            for="inputSuccess3">{{ form.telefono.label_tag }}</label>
+                                        <div class="col-sm-6 added_row">
+                                            {{ form.telefono }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-success has-feedback in_row" id="in_row">
+                                        <label class="control-label col-sm-2"
+                                            for="inputSuccess3">{{ form.telefono2.label_tag }}</label>
+                                        <div class="col-sm-6 added_row">
+                                            {{ form.telefono2 }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer color-footer">
+                                    <button class="btn btn-success btn-icon-split" type="submit">
+                                        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+                                        <span class="text">Nuevo ingreso</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
