@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Lista de proveedores{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Listado de proveedores</h1>
+    </div>
+    <div class="row">
+            <div class="col-md-12">
+                {% if messages %}
+                {% for message in messages %}
+                <!-- <div class="alert alert-{{ message.tags }}  del-msg message"> -->
+                <!-- {{ message|safe }} -->
+                <input type="hidden" id="error" value="{{ message|safe }}">
+                <!-- </div> -->
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Proveedores</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tabla" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Direccion</th>
+                            <th>Mail</th>
+                            <th>Telefono</th>
+                            <th>Telefono opcional</th>
+                            <th>Productos</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for proveedor in proveedores %}
+                        <tr>
+                            <td>{{ proveedor.nombre }}</td>
+                            <td>{{ proveedor.apellidos }}</td>
+                            <td>{{ proveedor.direccion }}</td>
+                            <td>{{ proveedor.mail }}</td>
+                            <td>{{ proveedor.telefono }}</td>
+                            <td>{{ proveedor.telefono2 }}</td>
+                            <td>
+                                {% for producto in proveedor.producto.all %}
+                                {{ producto.nombre }}-
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{% url 'modificar_proveedor' proveedor.id %}" 
+                                class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                <a href="{% url 'eliminar_proveedor' proveedor.id %}" 
+                                class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
