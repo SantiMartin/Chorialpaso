@@ -21,6 +21,11 @@
   <!-- Custom styles for this template-->
   <link href='/static/css/sb-admin.css' rel="stylesheet">
 
+  <!-- SWEET ALERTS 2-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -64,6 +69,15 @@
           <a class="dropdown-item" href="{% url 'listar_stock' %}">Ver stock</a>
           <a class="dropdown-item" href="{% url 'baja_stock' %}">Baja stock</a>
           <a class="dropdown-item" href="{% url 'listar_movimientos' %}">Ver movimientos</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Menu</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <a class="dropdown-item" href="{% url 'listar_menu' %}">Ver menu</a>
         </div>
       </li>
     </ul>

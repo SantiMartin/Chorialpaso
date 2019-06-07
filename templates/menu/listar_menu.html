@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Lista de productos{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Listado de menues</h1>
+    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Menues</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tabla" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio Venta</th>
+                            <th>Opciones</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for menu in menues %}
+                        <tr>
+                            <td>{{ menu.nombre }}</td>
+                            <td>{{ menu.precio_venta }}</td>
+                            <td>                                
+                                <a data_toggle="modal" onclick="ver_menu_items({{menu.id}})" 
+                                class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                <a  class="btn btn-info" data-toggle="modal" data-target="#ModalMenu_{{ menu.id }}"><i class="fas fa-search"></i></a>
+                            </td>                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% for menu in menues %}
+    <!-- Modal -->
+    <div class="modal fade" id="ModalMenu_{{ menu.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Items del menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered" id="tabla" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in menu.menuxProductos.all %}
+                    <tr>
+                        <td>{{ producto.nombre }}</td>
+                        {% for mxp in productosxMenu %}
+                        {% if menu == mxp.menu and producto == mxp.producto %}
+                        <td>{{ mxp.cantidad }}</td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="" id="modalEditar"></div>
+
+<!-- pito -->
+<!-- pito2 -->
+{% endblock content %}

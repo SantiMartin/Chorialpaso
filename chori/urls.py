@@ -27,4 +27,7 @@ urlpatterns = [
     path('proveedores/',include('apps.proveedores.urls')),
     #Conjunto de URL de la app productos
     path('stock/',include('apps.stock.urls')),
+    #Conjunto de URL de la app menu
+    path('menu/',include('apps.menu.urls')),
+
 ]
