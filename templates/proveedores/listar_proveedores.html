@@ -47,9 +47,7 @@
                             <td>{{ proveedor.telefono }}</td>
                             <td>{{ proveedor.telefono2 }}</td>
                             <td>
-                                {% for producto in proveedor.producto.all %}
-                                {{ producto.nombre }}-
-                                {% endfor %}
+                                <a  class="btn btn-info" data-toggle="modal" data-target="#ModalProveedor_{{ proveedor.id }}"><i class="fas fa-search"></i></a>
                             </td>
                             <td>
                                 <a href="{% url 'modificar_proveedor' proveedor.id %}" 
@@ -64,5 +62,35 @@
             </div>
         </div>
     </div>
+    {% for proveedor in proveedores %}
+    <!-- Modal -->
+    <div class="modal fade" id="ModalProveedor_{{ proveedor.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Productos que vende</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered" id="tabla" width="100%" cellspacing="0">
+                        <h3 class="center">Productos</h3>                        
+                    {% for producto in proveedor.producto.all %}
+                        <p>
+                            {{ producto.nombre }} <br>
+                        </p>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock content %}
